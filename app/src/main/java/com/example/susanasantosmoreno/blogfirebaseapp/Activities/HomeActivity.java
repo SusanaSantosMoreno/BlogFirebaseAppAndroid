@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
@@ -20,10 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.HomeFragment;
+import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.ProfileFragment;
+import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.SettingsFragment;
 import com.example.susanasantosmoreno.blogfirebaseapp.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,13 +95,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
+        Fragment fragment = null;
         switch ( menuItem.getItemId()){
-            case R.id.nav_item_one:
-                showMessage("Item one");
+            case R.id.navItemHome:
+                getSupportActionBar().setTitle(getString(R.string.drawerOptionHome));
+                fragment = new HomeFragment();
+                displaySelectedFragment(fragment);
                 break;
-            case R.id.nav_item_two:
-                showMessage("Item two");
+            case R.id.navItemProfile:
+                getSupportActionBar().setTitle(getString(R.string.drawerOptionProfile));
+                fragment = new ProfileFragment();
+                displaySelectedFragment(fragment);
+                break;
+            case R.id.navItemSettings:
+                getSupportActionBar().setTitle(getString(R.string.drawerOptionSettings));
+                fragment = new SettingsFragment();
+                displaySelectedFragment(fragment);
+                break;
+            case R.id.navItemSignOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent loginActivity = new Intent(getApplicationContext(),
+                        com.example.susanasantosmoreno.blogfirebaseapp.Activities.loginActivity.class);
+                startActivity(loginActivity);
+                finish();
                 break;
             default:
                 return true;
@@ -101,6 +125,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void displaySelectedFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 
     private void showMessage(String message) {
