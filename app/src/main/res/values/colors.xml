@@ -7,4 +7,5 @@
     <color name="colorAdditional">#c0ffb3</color>
     <color name="colorAdditionalDark">#01d28e</color>
     <color name="colorAdditionalMed">#4baea0</color>
+    <color name="colorStatusBar">#e7f3ee</color>
 </resources>

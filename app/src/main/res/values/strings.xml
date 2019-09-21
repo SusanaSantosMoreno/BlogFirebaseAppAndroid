@@ -6,4 +6,6 @@
     <string name="reg_password_repeat">Repeat Password</string>
     <string name="reg_button">Sign Up</string>
     <string name="login_button">Login</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

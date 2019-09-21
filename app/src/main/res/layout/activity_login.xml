@@ -37,7 +37,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
-        android:hint="@string/reg_mail"
+        android:hint="@string/reg_password"
         android:inputType="textPersonName|textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
