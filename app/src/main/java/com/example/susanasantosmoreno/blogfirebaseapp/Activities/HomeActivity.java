@@ -1,8 +1,9 @@
-package com.example.susanasantosmoreno.blogfirebaseapp;
+package com.example.susanasantosmoreno.blogfirebaseapp.Activities;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import com.example.susanasantosmoreno.blogfirebaseapp.R;
 
 public class HomeActivity extends AppCompatActivity {
 

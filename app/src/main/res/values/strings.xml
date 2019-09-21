@@ -5,4 +5,5 @@
     <string name="reg_password">Password</string>
     <string name="reg_password_repeat">Repeat Password</string>
     <string name="reg_button">Sign Up</string>
+    <string name="login_button">Login</string>
 </resources>

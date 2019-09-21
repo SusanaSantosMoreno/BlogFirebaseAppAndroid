@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.susanasantosmoreno.blogfirebaseapp.HomeActivity;
 import com.example.susanasantosmoreno.blogfirebaseapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,12 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //init views
-        userImage = findViewById(R.id.reg_user_img);
+        userImage = findViewById(R.id.regUserImg);
         userEmail = findViewById(R.id.regMail);
         userName = findViewById(R.id.regName);
         userPassword = findViewById(R.id.regPassword);
         userPasswordRepeat = findViewById(R.id.regPasswordRep);
-        regBtn = findViewById(R.id.reg_button);
+        regBtn = findViewById(R.id.regButton);
         loadingProgress = findViewById(R.id.regProgressBar);
         mAuth = FirebaseAuth.getInstance();
 
