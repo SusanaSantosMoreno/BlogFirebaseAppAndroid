@@ -11,14 +11,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.HomeFragment;
 import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.ProfileFragment;
 import com.example.susanasantosmoreno.blogfirebaseapp.Fragments.SettingsFragment;
 import com.example.susanasantosmoreno.blogfirebaseapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,6 +51,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TextView navUserName;
     private TextView navUserMail;
     private ImageView navUserImg;
+    private FloatingActionButton fab;
+
+    private Dialog popUpAddPost;
+
+    private ImageView popUpImg;
+    private ImageView popUpaddImg;
+    private EditText popUpTitle;
+    private EditText popUpDescription;
+    private ProgressBar popUpProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +75,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
+        // init popup
+        initPopUp();
+
+        fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMessage("Hola");
+                popUpAddPost.show();
+            }
+        });
+
         drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open, R.string.close);
@@ -72,16 +100,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         updateNavHeader();
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
-    }
+    private void initPopUp() {
+        popUpAddPost = new Dialog(this);
+        popUpAddPost.setContentView(R.layout.popup_add_post);
+        popUpAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popUpAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popUpAddPost.getWindow().getAttributes().gravity = Gravity.TOP;
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+        //init popup components
+
     }
 
     @Override
@@ -158,5 +185,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserImg);
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
 }
